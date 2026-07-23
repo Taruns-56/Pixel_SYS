@@ -134,51 +134,9 @@ function App() {
   const [userCredentials, setUserCredentials] = useState(null);
 
   // Shared state for Admin Official Events & Client/User Posted Events
-  const [adminEvents, setAdminEvents] = useState([
-    {
-      id: "1",
-      title: "Google GenAI Hackathon 2026",
-      category: "Hackathon",
-      date: "2026-08-10",
-      time: "10:00 AM",
-      location: "Main Auditorium",
-      organizer: "Google Developer Student Club",
-      description: "Build groundbreaking generative AI agents and win prizes up to $5,000.",
-      targetAudience: "All CSE & IT Students",
-      status: "Verified & Published",
-      postedBy: "Admin (Official)"
-    },
-    {
-      id: "2",
-      title: "Full-Stack Web Dev Bootcamp",
-      category: "Workshop",
-      date: "2026-08-04",
-      time: "02:00 PM",
-      location: "Academic Block Room 304",
-      organizer: "Coding Club",
-      description: "Hands-on session learning Vite, React 19, and Node.js backend integration.",
-      targetAudience: "Freshers & 2nd Year Students",
-      status: "Verified & Published",
-      postedBy: "Admin (Official)"
-    }
-  ]);
+  const [adminEvents, setAdminEvents] = useState([]);
 
-  const [clientEvents, setClientEvents] = useState([
-    {
-      id: "101",
-      organizerName: "Karthik R.",
-      organizerRole: "Student Lead",
-      contactEmail: "karthik@student.edu",
-      eventTitle: "Python DSA Peer Study Session",
-      activityType: "Study Group / Coding Sprint",
-      proposedDate: "2026-07-28",
-      proposedTime: "04:00 PM",
-      venue: "Central Library 2nd Floor",
-      description: "Solving LeetCode medium questions on Trees & Dynamic Programming together before midterm tests.",
-      expectedParticipants: "10 - 25",
-      createdAt: "2026-07-23"
-    }
-  ]);
+  const [clientEvents, setClientEvents] = useState([]);
 
   const handleNavigate = (view) => {
     setCurrentView(view);

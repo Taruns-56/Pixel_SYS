@@ -18,11 +18,13 @@ import {
   Sparkles,
   Tag,
   ExternalLink,
-  ThumbsUp
+  ThumbsUp,
+  LineChart,
+  Milestone
 } from 'lucide-react';
 
 function Dashboard({ profile, onLogout, onNavigate, adminEvents = [], clientEvents = [] }) {
-  const [activeTab, setActiveTab] = useState('hub'); // 'hub', 'planner', 'navigator'
+  const [activeTab, setActiveTab] = useState('hub'); // 'hub', 'planner', 'navigator', 'notifications', 'my-journey', 'growth'
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(null);
@@ -181,7 +183,7 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
         </div>
 
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           <button 
             onClick={() => setActiveTab('hub')}
             style={{
@@ -238,6 +240,63 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
             }}
           >
             <Map size={16} /> Campus Navigator
+          </button>
+          <button 
+            onClick={() => setActiveTab('notifications')}
+            style={{
+              background: activeTab === 'notifications' ? 'rgba(99, 102, 241, 0.12)' : 'none',
+              border: activeTab === 'notifications' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
+              color: activeTab === 'notifications' ? '#ffffff' : 'var(--text-muted)',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s'
+            }}
+          >
+            <Bell size={16} /> Notifications
+          </button>
+          <button 
+            onClick={() => setActiveTab('my-journey')}
+            style={{
+              background: activeTab === 'my-journey' ? 'rgba(99, 102, 241, 0.12)' : 'none',
+              border: activeTab === 'my-journey' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
+              color: activeTab === 'my-journey' ? '#ffffff' : 'var(--text-muted)',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s'
+            }}
+          >
+            <Milestone size={16} /> My Journey
+          </button>
+          <button 
+            onClick={() => setActiveTab('growth')}
+            style={{
+              background: activeTab === 'growth' ? 'rgba(99, 102, 241, 0.12)' : 'none',
+              border: activeTab === 'growth' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
+              color: activeTab === 'growth' ? '#ffffff' : 'var(--text-muted)',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s'
+            }}
+          >
+            <LineChart size={16} /> Growth Analytics
           </button>
         </div>
 
@@ -439,8 +498,8 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
                     <span style={{ marginLeft: 'auto', fontSize: '11px', color: 'var(--text-muted)', fontWeight: 400 }}>{adminEvents.length} active</span>
                   </h3>
                   {adminEvents.length === 0 ? (
-                    <div style={{ padding: '24px', textAlign: 'center', background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
-                      <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>No events published yet.</p>
+                    <div style={{ padding: '32px', textAlign: 'center', background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>No events published yet. Add real-life events via the Admin Portal!</p>
                     </div>
                   ) : adminEvents.slice(0, 4).map((evt) => (
                     <div key={evt.id} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderLeft: '3px solid #06b6d4', transition: 'all 0.2s' }} className="glass-interactive">
@@ -450,18 +509,13 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
                         {evt.priority === 'High' && <span style={{ fontSize: '10px', color: '#f59e0b', fontWeight: 700 }}>🟡 HIGH</span>}
                       </div>
                       <h5 style={{ fontSize: '14px', margin: '0 0 6px', color: '#ffffff' }}>{evt.title}</h5>
-                      <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '0 0 10px', lineHeight: 1.4 }}>{evt.description.slice(0, 80)}...</p>
+                      <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '0 0 10px', lineHeight: 1.4 }}>{evt.description}</p>
                       <div style={{ display: 'flex', gap: '12px', fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>
                         <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><Calendar size={11} color="#06b6d4" /> {evt.date}</span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><MapPin size={11} color="#06b6d4" /> {evt.location}</span>
                       </div>
                     </div>
                   ))}
-                  {adminEvents.length > 4 && (
-                    <button onClick={() => onNavigate('admin-events')} style={{ background: 'none', border: '1px dashed var(--border-color)', color: 'var(--text-muted)', padding: '10px', borderRadius: '10px', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}>
-                      View all {adminEvents.length} events →
-                    </button>
-                  )}
                 </div>
 
                 {/* Right column: clubs + community + progress */}
@@ -472,28 +526,33 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
                     <h4 style={{ fontSize: '14px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <Compass size={15} color="var(--primary)" /> Recommended Clubs
                     </h4>
-                    {userProfile.clubs.map((club, idx) => (
-                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: idx < userProfile.clubs.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
-                        <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(99,102,241,0.08)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <Users size={14} color="#818cf8" />
+                    {userProfile.clubs.length === 0 ? (
+                      <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>No clubs selected during onboarding.</p>
+                    ) : (
+                      userProfile.clubs.map((club, idx) => (
+                        <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 0', borderBottom: idx < userProfile.clubs.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
+                          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(99,102,241,0.08)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <Users size={14} color="#818cf8" />
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: '13px', fontWeight: 600 }}>{club}</div>
+                            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Matches: {userProfile.interests[idx % userProfile.interests.length] || 'Your Profile'}</div>
+                          </div>
+                          <span style={{ fontSize: '10px', color: '#10b981', fontWeight: 700 }}>Active</span>
                         </div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: '13px', fontWeight: 600 }}>{club}</div>
-                          <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Matches: {userProfile.interests[idx % userProfile.interests.length]}</div>
-                        </div>
-                        <span style={{ fontSize: '10px', color: '#10b981', fontWeight: 700 }}>Active</span>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
 
                   {/* Community Activity Preview */}
-                  {clientEvents.length > 0 && (
-                    <div style={{ padding: '18px' }} className="glass">
-                      <h4 style={{ fontSize: '14px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <ThumbsUp size={15} color="#06b6d4" /> Latest Community Activity
-                        <button onClick={() => onNavigate('client-post')} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#06b6d4', fontSize: '11px', cursor: 'pointer', fontWeight: 600 }}>View all →</button>
-                      </h4>
-                      {clientEvents.slice(0, 2).map((evt) => (
+                  <div style={{ padding: '18px' }} className="glass">
+                    <h4 style={{ fontSize: '14px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <ThumbsUp size={15} color="#06b6d4" /> Latest Community Activity
+                    </h4>
+                    {clientEvents.length === 0 ? (
+                      <p style={{ color: 'var(--text-muted)', fontSize: '12px' }}>No student community events proposed yet.</p>
+                    ) : (
+                      clientEvents.slice(0, 2).map((evt) => (
                         <div key={evt.id} style={{ padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
                           <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '2px' }}>{evt.eventTitle}</div>
                           <div style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'flex', gap: '10px' }}>
@@ -502,13 +561,13 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
                             <span><Calendar size={10} style={{ display: 'inline', verticalAlign: 'middle' }} /> {evt.proposedDate}</span>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      ))
+                    )}
+                  </div>
 
                   {/* Onboarding Progress */}
                   <div style={{ padding: '18px' }} className="glass">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', justifyItems: 'center', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <h4 style={{ fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <TrendingUp size={15} color="var(--accent)" /> Onboarding Progress
                       </h4>
@@ -741,6 +800,134 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
 
               </div>
 
+            </div>
+          )}
+
+          {/* TAB 4: Notifications */}
+          {activeTab === 'notifications' && (
+            <div className="animate-slide-up" style={{ display: 'flex', flexDirection: 'column', gap: '24px', textAlign: 'left' }}>
+              <div>
+                <h2 style={{ fontSize: '22px', marginBottom: '4px' }}>Productive Alerts & Updates</h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Real-time updates dynamically tracked and customized by your Digital Twin.</p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '12px', display: 'flex', gap: '14px' }}>
+                  <AlertTriangle size={20} color="#ef4444" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <h4 style={{ fontSize: '15px', color: '#ef4444', margin: '0 0 4px' }}>Immediate Action: Lab Assignment Overdue Notice</h4>
+                    <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>Your next lab submission is due today. Submit your Python Lab #2 script before the Portal lock deadline.</p>
+                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Triggered 10 minutes ago</span>
+                  </div>
+                </div>
+
+                <div style={{ padding: '16px', background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '12px', display: 'flex', gap: '14px' }}>
+                  <Sparkles size={20} color="#818cf8" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <h4 style={{ fontSize: '15px', color: '#818cf8', margin: '0 0 4px' }}>Timetable Optimization Complete</h4>
+                    <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>Your Digital Twin blocked a 2-hour study slot ahead of tomorrow's Mathematics II lecture.</p>
+                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Triggered 2 hours ago</span>
+                  </div>
+                </div>
+
+                <div style={{ padding: '16px', background: 'rgba(6, 182, 212, 0.08)', border: '1px solid rgba(6, 182, 212, 0.2)', borderRadius: '12px', display: 'flex', gap: '14px' }}>
+                  <Bell size={20} color="#22d3ee" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <h4 style={{ fontSize: '15px', color: '#22d3ee', margin: '0 0 4px' }}>GDSC orientation session published</h4>
+                    <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>Google Developer Student Clubs Orientation has been published by the campus admin. Check Opportunity Radar.</p>
+                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Triggered 4 hours ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: My Journey */}
+          {activeTab === 'my-journey' && (
+            <div className="animate-slide-up" style={{ display: 'flex', flexDirection: 'column', gap: '24px', textAlign: 'left' }}>
+              <div>
+                <h2 style={{ fontSize: '22px', marginBottom: '4px' }}>Personalized Journey Roadmap</h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>A visual timeline showing your completed milestones and future target goals.</p>
+              </div>
+
+              <div style={{ position: 'relative', paddingLeft: '24px', borderLeft: '2px dashed rgba(99,102,241,0.2)', display: 'flex', flexDirection: 'column', gap: '28px', margin: '10px 0 10px 10px' }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: '-31px', top: '2px', width: '12px', height: '12px', borderRadius: '50%', background: '#10b981', border: '3px solid #07070a' }} />
+                  <h4 style={{ fontSize: '15px', color: '#10b981', margin: '0 0 4px' }}>Milestone 1: Digital Sync (Completed)</h4>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>Student credentials registered, career endpoints mapped to <strong>{userProfile.careerGoal}</strong>.</p>
+                </div>
+
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: '-31px', top: '2px', width: '12px', height: '12px', borderRadius: '50%', background: '#6366f1', border: '3px solid #07070a' }} />
+                  <h4 style={{ fontSize: '15px', color: '#818cf8', margin: '0 0 4px' }}>Milestone 2: Campus Orientation (Current)</h4>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>Registering for interest-based student clubs and participating in initial coding orientations.</p>
+                </div>
+
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: '-31px', top: '2px', width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '3px solid #07070a' }} />
+                  <h4 style={{ fontSize: '15px', color: 'var(--text-muted)', margin: '0 0 4px' }}>Milestone 3: Academic Midterms (Upcoming)</h4>
+                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Study groups matching and timetable alerts will recalibrate to maximize preparation efficiency.</p>
+                </div>
+
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: '-31px', top: '2px', width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '3px solid #07070a' }} />
+                  <h4 style={{ fontSize: '15px', color: 'var(--text-muted)', margin: '0 0 4px' }}>Milestone 4: Skill Certification & Hackathons</h4>
+                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Build side projects to qualify for major collaborative hackathons across Google Developer channels.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 6: Growth Analytics */}
+          {activeTab === 'growth' && (
+            <div className="animate-slide-up" style={{ display: 'flex', flexDirection: 'column', gap: '24px', textAlign: 'left' }}>
+              <div>
+                <h2 style={{ fontSize: '22px', marginBottom: '4px' }}>Growth Analytics Dashboard</h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Quantifiable indicators displaying academic progress, study efforts, and campus activity logs.</p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }} className="tf-grid-2">
+                <div style={{ padding: '20px' }} className="glass">
+                  <h4 style={{ fontSize: '14px', color: 'var(--accent)', marginBottom: '14px' }}>Skill Calibration Matrix</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {userProfile.skills.map((skill, idx) => (
+                      <div key={idx}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                          <span>{skill} Development</span>
+                          <span>85% Calibration</span>
+                        </div>
+                        <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.04)', borderRadius: '4px', overflow: 'hidden' }}>
+                          <div style={{ width: '85%', height: '100%', background: 'var(--accent)', borderRadius: '4px' }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ padding: '20px' }} className="glass">
+                  <h4 style={{ fontSize: '14px', color: 'var(--primary)', marginBottom: '14px' }}>Weekly Engagement Stats</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                        <span>Study Slots Blocked</span>
+                        <span>14 Hours / Week</span>
+                      </div>
+                      <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.04)', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div style={{ width: '70%', height: '100%', background: 'var(--primary)', borderRadius: '4px' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                        <span>Campus Event Attendance</span>
+                        <span>3 Events Registered</span>
+                      </div>
+                      <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.04)', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div style={{ width: '90%', height: '100%', background: 'var(--primary)', borderRadius: '4px' }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
