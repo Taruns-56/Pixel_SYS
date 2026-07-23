@@ -187,7 +187,12 @@ function App() {
 
   const handleLoginSuccess = (credentials) => {
     setUserCredentials(credentials);
-    if (userProfile) {
+    const isUserAdmin = credentials && (credentials.email.toLowerCase().startsWith('admin') || credentials.username.toLowerCase().startsWith('admin'));
+    
+    if (isUserAdmin) {
+      // Direct admin users straight to the admin control panel authorization
+      handleNavigate('admin-events');
+    } else if (userProfile) {
       handleNavigate('dashboard');
     } else {
       handleNavigate('onboarding');
