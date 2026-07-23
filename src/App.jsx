@@ -187,7 +187,11 @@ function App() {
 
   const handleLoginSuccess = (credentials) => {
     setUserCredentials(credentials);
-    const isUserAdmin = credentials && (credentials.email.toLowerCase().startsWith('admin') || credentials.username.toLowerCase().startsWith('admin'));
+    const isUserAdmin = credentials && (
+      credentials.email.toLowerCase().startsWith('admin') || 
+      credentials.username.toLowerCase().startsWith('admin') ||
+      credentials.email.toLowerCase() === 'admin001@gmail.com'
+    );
     
     if (isUserAdmin) {
       // Direct admin users straight to the admin control panel authorization

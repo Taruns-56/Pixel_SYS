@@ -27,6 +27,12 @@ function AuthPage({ mode, onNavigate, onLoginSuccess, onSignupSuccess }) {
     const username = email.split('@')[0];
     const credentials = { email, password, username };
 
+    // Explicit Admin Bypass Check
+    if (email.toLowerCase() === 'admin001@gmail.com' && password === 'saraadmin001') {
+      onLoginSuccess(credentials);
+      return;
+    }
+
     try {
       if (isLogin) {
         const formData = new URLSearchParams();
