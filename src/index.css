@@ -463,3 +463,49 @@ button, input, select, textarea {
   .tf-grid-4 { grid-template-columns: 1fr 1fr !important; }
 }
 
+/* Shake animation for error feedback */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+/* Hover-glow for spotlight cards */
+.card-3d:hover .spotlight-glow {
+  opacity: 1 !important;
+}
+
+/* Nav link hover */
+.tf-navlink:hover {
+  color: #ffffff !important;
+}
+
+/* Primary button style for chat / small buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.4);
+}
+
+/* Smooth tooltip text */
+code {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Table row hover */
+table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.04) !important;
+}
+
