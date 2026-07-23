@@ -452,6 +452,26 @@ function LandingPage({ onNavigate, userProfile }) {
         <nav style={{ display: 'flex', gap: '28px', alignItems: 'center' }} className="tf-hide-mobile">
           <a href="#features" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} className="tf-navlink">Features</a>
           <a href="#how-it-works" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} className="tf-navlink">How It Works</a>
+          <button 
+            onClick={() => onNavigate('client-post')}
+            style={{
+              background: 'rgba(6, 182, 212, 0.08)',
+              border: '1px solid rgba(6, 182, 212, 0.25)',
+              color: '#22d3ee',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              transition: 'all 0.2s'
+            }}
+            className="tf-navlink"
+          >
+            <Sparkles size={13} /> Club Leader Portal
+          </button>
         </nav>
 
         <div>

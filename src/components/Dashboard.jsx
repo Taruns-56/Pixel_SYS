@@ -239,47 +239,6 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
           >
             <Map size={16} /> Campus Navigator
           </button>
-
-          {/* Quick Action Navigation to Admin Portal & Client Posting Page */}
-          <button 
-            onClick={() => onNavigate('client-post')}
-            style={{
-              background: 'rgba(6, 182, 212, 0.12)',
-              border: '1px solid rgba(6, 182, 212, 0.3)',
-              color: '#22d3ee',
-              padding: '8px 14px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              marginLeft: '8px',
-              transition: 'all 0.2s'
-            }}
-          >
-            <Sparkles size={15} /> + Post Activity
-          </button>
-          <button 
-            onClick={() => onNavigate('admin-events')}
-            style={{
-              background: 'rgba(99, 102, 241, 0.12)',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-              color: '#818cf8',
-              padding: '8px 14px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.2s'
-            }}
-          >
-            <BookOpen size={15} /> Admin Portal
-          </button>
         </div>
 
         {/* User profile dropdown & logout */}
@@ -467,9 +426,6 @@ You can click on the **Campus Navigator** tab at the top right of your dashboard
                       <div style={{ fontSize: '12px', fontWeight: 700, color: s.color || '#ffffff' }}>{s.val}</div>
                     </div>
                   ))}
-                  <button onClick={() => onNavigate('client-post')} style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)', color: '#22d3ee', padding: '8px 14px', borderRadius: '8px', cursor: 'pointer', fontSize: '12px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Sparkles size={14} /> + Post Activity
-                  </button>
                 </div>
               </div>
 
